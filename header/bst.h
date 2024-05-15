@@ -1,10 +1,6 @@
 #include<iostream>
 using namespace std;
-class Node{
-    int key;
-    Node* leftChild;
-    Node* rightChild;
-};
+
 
 class bst{
     public:
