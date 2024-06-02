@@ -1,35 +1,23 @@
-
+#include <vector>
 #include <iostream>
-int partition(std::vector<int>& a,int high,int low)
-{
-    int pivot =a[low];
-    int i=low;
-    int j=high+1;
-    while(i<j)
-    {
-        while(a[i]<pivot)
-        {
-            i++;
-        }   
-        while(a[j]>pivot)
-        {
-            j--;
-        }
-        if(i<j)
-        {
-            std::swap(a[i],a[j]);
-        }
-        std::swap(a[low],a[j]);
-        return j;
 
+int partition(std::vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            std::swap(arr[i], arr[j]);
+        }
     }
+    std::swap(arr[i + 1], arr[high]);
+    return (i + 1);
 }
-void quicksort(int a[],int low,int high)
-{
-    if(low<high)
-    {
-        int j=partition(a,low,high);
-        quicksort(a,low,j-1);
-        quicksort(a,j+1,high);
+void quicksort(std::vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quicksort(arr, low, pi - 1);
+        quicksort(arr, pi + 1, high);
     }
 }
