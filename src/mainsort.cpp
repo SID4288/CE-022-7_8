@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include "../header/insertion.h"
 int main()
 {
     std::vector<int> arr;
@@ -15,5 +16,10 @@ int main()
         std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
+    insertion(arr);
+    std::cout << "After sorting: ";
+     for (int i = 0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
 
 }
