@@ -24,9 +24,10 @@ public:
     void addBST(int key, int value) override {
         root = addRecursive(root, key, value);
     }
-
     bool removeBST(int key) override {
-        return false; 
+    bool success;
+    root = removeRecursive(root, key, success);
+    return success;
     }
 
     bool searchBST(int key) override {
@@ -68,15 +69,53 @@ private:
         }
     }
 
+
+    Node* removeRecursive(Node* node, int key, bool& success) {
+        if (node == nullptr) {
+            success = false;
+            return node;
+        }
+
+        if (key < node->key) {
+            node->leftChild = removeRecursive(node->leftChild, key, success);
+        } else if (key > node->key) {
+            node->rightChild = removeRecursive(node->rightChild, key, success);
+        } else {
+            if (node->leftChild == nullptr) {
+                Node* temp = node->rightChild;
+                delete node;
+                success = true;
+                return temp;
+            } else if (node->rightChild == nullptr) {
+                Node* temp = node->leftChild;
+                delete node;
+                success = true;
+                return temp;
+            } else {
+                Node* temp = minValueNode(node->rightChild);
+                node->key = temp->key;
+                node->rightChild = removeRecursive(node->rightChild, temp->key, success);
+            }
+        }
+
+        return node;
+    }
+
+    Node* minValueNode(Node* node) {
+        Node* current = node;
+        while (current && current->leftChild!= nullptr) {
+            current = current->leftChild;
+        }
+        return current;
+    }
     void inorderRecursive(Node* current) {
-        if (current != nullptr) {
-            inorderRecursive(current->leftChild);
+            if (current != nullptr) {
+                inorderRecursive(current->leftChild);
             cout << current->key << " ";
             inorderRecursive(current->rightChild);
         }
     }
 };
-
 int main() {
     bstarray bstArray;
     bstArray.addBST(50, 1);
@@ -94,8 +133,12 @@ int main() {
     cout << "Search 20: " << (bstArray.searchBST(20) ? "Found" : "Not found") << endl;
     cout << "Search 90: " << (bstArray.searchBST(90) ? "Found" : "Not found") << endl;
 
+    cout << "Is the BST empty? " << (bstArray.isEmpty() ? "Yes" : "No") << endl;
+
+    bstArray.removeBST(30);
+    cout << "Inorder traversal after removing 30: ";
+    bstArray.inorder();
+    cout << endl;
+
     return 0;
 }
-
-
-
