@@ -1,4 +1,5 @@
 #include<vector>
+#include<iostream>
 void insertion(std::vector<int>& arr)
 {
     int n=arr.size();
@@ -11,5 +12,6 @@ void insertion(std::vector<int>& arr)
         }
         arr[j + 1] = key;
     }
+    
     
 }

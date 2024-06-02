@@ -1,17 +1,17 @@
 
 #include <iostream>
-int partition(a,int high,int low)
+int partition(std::vector<int>& a,int high,int low)
 {
-    int pivot =high/2;
+    int pivot =a[low];
     int i=low;
     int j=high+1;
     while(i<j)
     {
-        while(a[i]<a[pivot])
+        while(a[i]<pivot)
         {
             i++;
         }   
-        while(a[j]>a[pivot])
+        while(a[j]>pivot)
         {
             j--;
         }
@@ -19,7 +19,17 @@ int partition(a,int high,int low)
         {
             std::swap(a[i],a[j]);
         }
-        s
+        std::swap(a[low],a[j]);
+        return j;
 
+    }
+}
+void quicksort(int a[],int low,int high)
+{
+    if(low<high)
+    {
+        int j=partition(a,low,high);
+        quicksort(a,low,j-1);
+        quicksort(a,j+1,high);
     }
 }
