@@ -19,7 +19,7 @@ void generate_csv(int n)
         std::vector<int> arr;
         for (int j = 0; j < i; j++)
         {
-            arr.push_back(rand() % 100);
+            arr.push_back(rand() % 100000);
         }
 
         std::vector<int> arr_insertion = arr;
@@ -88,6 +88,6 @@ int main()
     }
     std::cout << "\n";
     std::cout << "Time taken by quicksort: " << duration << " seconds\n";
-    // generate_csv(10000); the csv for 10000 elements is already generated
+    generate_csv(10000);
     return 0;
 }
